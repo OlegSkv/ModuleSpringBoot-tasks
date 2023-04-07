@@ -2,10 +2,8 @@ package com.example.task2.exception;
 
 import com.example.task2.controller.StudentController;
 import com.example.task2.utils.ErrorResponseBody;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -17,6 +15,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,13 +35,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return super.handleHttpMessageNotReadable(ex, headers, status, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatusCode status,
+                                                                  HttpHeaders headers, HttpStatus status,
                                                                   WebRequest request) {
         String uri = ((ServletWebRequest) request).getRequest().getRequestURI();
         ErrorResponseBody errorResponseBody = new ErrorResponseBody(getValidationErrors(ex), uri);
