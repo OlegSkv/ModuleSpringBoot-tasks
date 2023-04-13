@@ -52,11 +52,11 @@ class StudentControllerTest {
 
     @Test
     void newStudent_shouldReturnCreatedStudent() throws Exception {
-        given(studentService.create(any(Student.class))).willReturn(new Student(1, "name", "surname"));
+        given(studentService.create(any(Student.class))).willReturn(new Student(1, "name", "surname", 30));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/students")
-                        .content(asJsonString(new Student(0, "name", "surname")))
+                        .content(asJsonString(new Student(0, "name", "surname", 30)))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -117,8 +117,8 @@ class StudentControllerTest {
     @Test
     void getAllStudents_shouldReturnAllStudents() throws Exception {
         given(studentService.getAll()).willReturn(List.of(
-                new Student(2, "name2", "surname2"),
-                new Student(1, "name1", "surname1")));
+                new Student(2, "name2", "surname2", 30),
+                new Student(1, "name1", "surname1", 30)));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/students")
@@ -150,7 +150,7 @@ class StudentControllerTest {
     @Test
     void getStudent_shouldReturnStudentById() throws Exception {
         long studentId = 1;
-        given(studentService.get(studentId)).willReturn(new Student(studentId, "name", "surname"));
+        given(studentService.get(studentId)).willReturn(new Student(studentId, "name", "surname", 30));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/students/" + studentId)
@@ -182,11 +182,11 @@ class StudentControllerTest {
     void updateStudent_shouldReturnUpdatedStudent() throws Exception {
         long studentId = 1;
         given(studentService.update(any(Student.class)))
-                .willReturn(new Student(studentId, "updated name", "updated surname"));
+                .willReturn(new Student(studentId, "updated name", "updated surname", 30));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/api/students/" + studentId)
-                        .content(asJsonString(new Student(studentId, "updated name", "updated surname")))
+                        .content(asJsonString(new Student(studentId, "updated name", "updated surname", 30)))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -205,7 +205,7 @@ class StudentControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/api/students/" + wrongStudentId)
-                        .content(asJsonString(new Student(0, "updated name", "updated surname")))
+                        .content(asJsonString(new Student(0, "updated name", "updated surname", 30)))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())

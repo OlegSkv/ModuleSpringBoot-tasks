@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet author="Oleg Skvortcov" id="step-1">
+        <addColumn schemaName= "students_liquibase"
+                   tableName="student" >
+            <column name="age"
+                    type="number">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn schemaName= "students_liquibase"
+                   tableName="student" >
+            <column name="city"
+                    type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Oleg Skvortcov" id="step-2">
+        <addColumn schemaName= "students_liquibase"
+                   tableName="student" >
+            <column name="position"
+                    type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet  author="someone else"  id="step-3">
+        <renameColumn  columnDataType="VARCHAR(50)"
+                       newColumnName="jobpositon"
+                       oldColumnName="position"
+                       remarks="Set more accurate name"
+                       tableName="student"/>
+    </changeSet>
+
+</databaseChangeLog>

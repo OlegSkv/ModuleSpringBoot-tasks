@@ -44,8 +44,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
 		</dependency>
 
 		<dependency>
@@ -77,6 +83,21 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+<!--		This command will rollback 2 last changeSets
+				mvn liquibase:rollback "-Dliquibase.rollbackCount=2"  -->
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<configuration>
+					<propertyFileWillOverride>true</propertyFileWillOverride>
+					<changeLogFile>db/changelog/db.changelog-master.xml</changeLogFile>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
+					<url>jdbc:mysql://localhost:3306/students_liquibase</url>
+					<username>springboot_dev</username>
+					<password>dev</password>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

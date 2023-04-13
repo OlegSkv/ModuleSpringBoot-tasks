@@ -40,7 +40,7 @@ class StudentServiceImplTest {
 
     @Test
     void create_shouldSaveStudent() {
-        studentService.create(new Student(1, "firstName", "lastName"));
+        studentService.create(new Student(1, "firstName", "lastName", 30));
         verify(studentRepository).save(any(Student.class));
     }
 
@@ -79,8 +79,8 @@ class StudentServiceImplTest {
 
     @Test
     void update_shouldUpdateValidStudent() {
-        Student updatedStudent = new Student(2, "updated name", "updated surname");
-        Student originalStudent = new Student(2, "original name", "original surname");
+        Student updatedStudent = new Student(2, "updated name", "updated surname", 30);
+        Student originalStudent = new Student(2, "original name", "original surname", 30);
         ArgumentCaptor<Student> studentCaptor = ArgumentCaptor.forClass(Student.class);
 
         given(studentRepository.findById(updatedStudent.getId())).willReturn(Optional.of(originalStudent));
@@ -102,7 +102,7 @@ class StudentServiceImplTest {
         given(studentRepository.findById(wrongStudentId)).willReturn(Optional.empty());
         given(messageSource.getMessage(any(), any(), any())).willReturn("Error message");
 
-        assertThatThrownBy(() -> studentService.update(new Student(wrongStudentId, "name", "surname")))
+        assertThatThrownBy(() -> studentService.update(new Student(wrongStudentId, "name", "surname", 30)))
                 .isInstanceOf(StudentNotFoundException.class)
                 .hasMessageContaining("Error message");
 

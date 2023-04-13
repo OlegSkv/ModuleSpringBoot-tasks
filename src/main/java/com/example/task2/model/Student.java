@@ -24,13 +24,17 @@ public class Student {
     @NotBlank(message = "{" + EMPTY_LAST_NAME_PROP + "}")
     private String lastName;
 
+    @Column
+    private int age;
+
     public Student() {
     }
 
-    public Student(long id, String firstName, String lastName) {
+    public Student(long id, String firstName, String lastName, int age) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
     }
 
     @Override
@@ -73,5 +77,13 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
