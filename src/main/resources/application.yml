@@ -19,6 +19,9 @@ spring:
     username: springboot_dev
     password: dev
 
+# go to http://localhost:8442 -> Administration Console -> Sign in with user: admin, password: admin ->
+#   select "spring-boot-security-task" realm -> check Users with their Roles assigned.
+# Check security configuration for endpoints in SecurityConfig.java
 keycloak:
   realm: spring-boot-security-task
   #  without ssl using http instead of https
